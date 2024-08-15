@@ -39,4 +39,4 @@ Very simple c++ DNN implementation that uses the stochastic gradient descent opt
    ```
 
 ## License
-[MIT License](https://github.com/BinAl-Sadiq/stochastic-gradient-descent/blob/main/README.md)
+[MIT License](https://github.com/BinAl-Sadiq/stochastic-gradient-descent/blob/main/LICENSE)
