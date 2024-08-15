@@ -4,6 +4,7 @@
 
 class NeuralNetwork
 {
+public:
 	typedef std::vector<double(*)(double)> func_ptr;
 
 public:
@@ -17,6 +18,7 @@ public:
 	NeuralNetwork() = delete;
 	NeuralNetwork(std::vector<uint32_t> layers_lengths, func_ptr activations, func_ptr activations_derivatives);
 
-	void forwad_pass(std::vector<double> inputs);
+public:
+	void forward_pass(std::vector<double> inputs);
 	void backward_pass(std::vector<double> desired_outputs, double learning_rate);
 };
