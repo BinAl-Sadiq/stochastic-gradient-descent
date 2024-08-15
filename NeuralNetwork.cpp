@@ -33,7 +33,7 @@ NeuralNetwork::NeuralNetwork(std::vector<uint32_t> layers_lengths, func_ptr acti
 	}
 }
 
-void NeuralNetwork::forwad_pass(std::vector<double> inputs)
+void NeuralNetwork::forward_pass(std::vector<double> inputs)
 {
 	if (neurons[0].size() != inputs.size())
 		throw new std::exception("Invalid inputs count");
@@ -57,14 +57,14 @@ void NeuralNetwork::forwad_pass(std::vector<double> inputs)
 
 void NeuralNetwork::backward_pass(std::vector<double> desired_outputs, double learning_rate)
 {
-	//this will hold all the neurons' error functions derivatives
+	//this will hold all the neurons error functions derivatives
 	std::vector<std::vector<double>> errors(weights.size());
 
-	//calculate the output neorons' error functions derivatives
+	//calculate the output neorons error functions derivatives
 	for (size_t output = 0; output < neurons.back().size(); output++)
 		errors.back().push_back((neurons.back()[output] - desired_outputs[output]) * activations_derivatives.back()(neurons.back()[output]));
 
-	//calculate the hidden neorons' error functions derivatives
+	//calculate the hidden neorons error functions derivatives
 	for (size_t layer = neurons.size() - 2; layer > 0; layer--)
 	{
 		for (size_t neuron = 0; neuron < neurons[layer].size(); neuron++)
