@@ -2,8 +2,8 @@
 
 #include <ctime>
 
-NeuralNetwork::NeuralNetwork(std::vector<uint32_t> layers_lengths, func_ptr activations, func_ptr activations_derivatives)
-	: activations(activations), activations_derivatives(activations_derivatives)
+NeuralNetwork::NeuralNetwork(std::vector<uint32_t> layers_lengths, func_ptr acts, func_ptr acts_d, double(*c)(std::vector<double> p, std::vector<double> y), double(*c_d)(double p, double y))
+	: activations(acts), activations_derivatives(acts_d), criterion(c), criterion_derivative(c_d)
 {
 	if (layers_lengths.size() < 2)
 		throw new std::exception("The NN must has at least two layers for inputs and outputs");
@@ -55,6 +55,11 @@ void NeuralNetwork::forward_pass(std::vector<double> inputs)
 	}
 }
 
+double NeuralNetwork::loss(std::vector<double> desired_outputs)
+{
+	return criterion(neurons.back(), desired_outputs);
+}
+
 void NeuralNetwork::backward_pass(std::vector<double> desired_outputs, double learning_rate)
 {
 	//this will hold all the neurons error functions derivatives
@@ -62,7 +67,7 @@ void NeuralNetwork::backward_pass(std::vector<double> desired_outputs, double le
 
 	//calculate the output neorons error functions derivatives
 	for (size_t output = 0; output < neurons.back().size(); output++)
-		errors.back().push_back((neurons.back()[output] - desired_outputs[output]) * activations_derivatives.back()(neurons.back()[output]));
+		errors.back().push_back(criterion_derivative(neurons.back()[output], desired_outputs[output]) * activations_derivatives.back()(neurons.back()[output]));
 
 	//calculate the hidden neorons error functions derivatives
 	for (size_t layer = neurons.size() - 2; layer > 0; layer--)
