@@ -2,7 +2,7 @@
 
 #include <ctime>
 
-NeuralNetwork::NeuralNetwork(std::vector<uint32_t> layers_lengths, func_ptr acts, func_ptr acts_d, double(*c)(std::vector<double> p, std::vector<double> y), double(*c_d)(double p, double y))
+NeuralNetwork::NeuralNetwork(std::vector<uint32_t> layers_lengths, acts_t acts, acts_t acts_d, cri_t c, cri_d_t c_d)
 	: activations(acts), activations_derivatives(acts_d), criterion(c), criterion_derivative(c_d)
 {
 	if (layers_lengths.size() < 2)
