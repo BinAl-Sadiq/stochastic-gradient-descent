@@ -5,20 +5,22 @@
 class NeuralNetwork
 {
 public:
-	typedef std::vector<double(*)(double)> func_ptr;
+	typedef std::vector<double(*)(double)> acts_t;//type for activation functions and their derivatives
+	typedef double(*cri_t)(std::vector<double> p, std::vector<double> y);//type for criterion
+	typedef double(*cri_d_t)(double p, double y);//type for criterion's derivative
 
 public:
 	std::vector<std::vector<double>> neurons;
 	std::vector<std::vector<std::vector<double>>> weights;
 	
-	func_ptr activations;
-	func_ptr activations_derivatives;
-	double(*criterion)(std::vector<double> p, std::vector<double> y);
-	double(*criterion_derivative)(double p, double y);
+	acts_t activations;
+	acts_t activations_derivatives;
+	cri_t criterion;
+	cri_d_t criterion_derivative;
 
 public:
 	NeuralNetwork() = delete;
-	NeuralNetwork(std::vector<uint32_t> layers_lengths, func_ptr acts, func_ptr acts_d, double(*c)(std::vector<double> p, std::vector<double> y), double(*c_d)(double p, double y));
+	NeuralNetwork(std::vector<uint32_t> layers_lengths, acts_t acts, acts_t acts_d, cri_t c, cri_d_t c_d);
 
 public:
 	void forward_pass(std::vector<double> inputs);
