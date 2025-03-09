@@ -14,11 +14,11 @@ Very simple c++ DNN implementation that uses the stochastic gradient descent opt
 	//specify the activation functions' derivatives
 	NeuralNetwork::acts_t activations_derivatives = { 3, [](double x) {return 1.0 - x * x; } };
 
-   	//specify the criterion
-   	NeuralNetwork::cri_t criterion = [](std::vector<double> p, std::vector<double> y) {double loss = 0.0; for (int i = 0; i < p.size(); i++) loss += pow(p[i] - y[i], 2); loss /= p.size(); return loss; };
+    //specify the criterion
+    NeuralNetwork::cri_t criterion = [](std::vector<double> p, std::vector<double> y) {double loss = 0.0; for (int i = 0; i < p.size(); i++) loss += pow(p[i] - y[i], 2); loss /= p.size(); return loss; };
 
-   	//specify the criterion's derivative
-   	NeuralNetwork::cri_d_t criterion_derivative = [](double p, double y) {return p - y; });
+    //specify the criterion's derivative
+    NeuralNetwork::cri_d_t criterion_derivative = [](double p, double y) {return p - y; });
 
 	NeuralNetwork NN(layers_lengths, activations, activations_derivatives, criterion, criterion_derivative);
    ```
