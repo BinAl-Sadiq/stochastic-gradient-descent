@@ -1,5 +1,5 @@
 # stochastic-gradient-descent
-Very simple c++ DNN implementation that uses the stochastic gradient descent optimization algorithm
+A very simple C++ library for building and customizing feed-forward fully-connected deep neural networks (DNNs), utilizing the stochastic gradient descent (SGD) optimization algorithm. The library enables users to specify activation functions and loss criteria, providing flexibility for various neural network configurations.
 
 ## How to use it?
 1. Create an object of type "NeuralNetwork":
